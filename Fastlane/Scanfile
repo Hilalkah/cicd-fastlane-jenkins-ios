@@ -1,0 +1,8 @@
+workspace "MyApp.xcodeproj/project.xcworkspace"
+scheme "MyApp"
+sdk "iphonesimulator"
+device "iPhone 17"
+code_coverage true
+xcargs '-parallelizeTargets'
+prelaunch_simulator true
+derived_data_path "Build/"
