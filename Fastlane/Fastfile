@@ -6,5 +6,21 @@ platform :ios do
     lane :unit_test do |options|
       scan
     end
+
+    desc 'Build and distribute to Firebase App Distribution'
+    lane :distribute do
+      increment_build_number(build_number: ENV['BUILD_NUMBER'])
+      gym(
+        scheme: "MyApp",
+        workspace: "MyApp.xcodeproj/project.xcworkspace",
+        export_method: "development",
+        output_directory: "./build"
+      )
+      firebase_app_distribution(
+        app: ENV['FIREBASE_APP_ID'],
+        groups: "testers",
+        release_notes: "#{ENV['BRANCH_NAME']}\n#{ENV['GIT_COMMIT_MSG']}"
+      )
+    end
     
 end

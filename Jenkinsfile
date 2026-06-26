@@ -6,6 +6,8 @@ pipeline {
         LANG = "en_US.UTF-8"
         LC_ALL = "en_US.UTF-8"
         LANGUAGE = "en_US.UTF-8"
+        GIT_COMMIT_MSG = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+        FIREBASE_APP_ID = credentials('FIREBASE_APP_ID')
     }
 
     stages {
@@ -19,6 +21,12 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh 'bundle exec fastlane unit_test'
+            }
+        }
+        
+        stage('Distribute') {
+            steps {
+                sh 'bundle exec fastlane distribute'
             }
         }
     }
