@@ -1,0 +1,7 @@
+Build/
+Fastlane/report.xml
+Fastlane/test_output
+Fastlane/README.md
+Gemfile.lock
+vendor/
+.bundle/
